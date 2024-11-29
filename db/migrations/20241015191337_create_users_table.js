@@ -1,8 +1,5 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.up = function(knex) {
+
+export const up = function(knex) {
     return knex.schema.createTable('users', function(table){
         table.timestamp('createdAt').defaultTo(knex.fn.now()) // timestamp
         table.timestamp('updatedAt').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')) // timestamp
@@ -17,10 +14,6 @@ exports.up = function(knex) {
     })
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.down = function(knex) {
+ export const down  = function(knex) {
     return knex.schema.dropTable('users')
 };

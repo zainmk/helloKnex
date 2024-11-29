@@ -1,8 +1,5 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.up = function(knex) {
+
+export const up = function(knex) {
     return knex.schema.createTable('dropdowns', function(table){
         table.bigIncrements('id'); // use a bigInt, autoincrements, and set as PK
         table.timestamp('createdAt').defaultTo(knex.fn.now()) // timestamp
@@ -14,10 +11,6 @@ exports.up = function(knex) {
     })
 };
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.down = function(knex) {
+export const down = function(knex) {
     return knex.schema.dropTable('dropdowns')
 };
