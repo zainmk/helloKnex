@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import knex from 'knex';
 import config from './knexfile.js';
 
-import { getMySQLSecrets } from './AzureKeyVaultAuth.js';
+import { getSecret } from './AzureKeyVaultAuth.js';
 
 const useKnex = knex(config);
 
@@ -15,15 +15,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false}));
 
 app.get('/', function(req, res){
-    // use withSchema to specify existence of across DB's. (database in 'knexfile.js' is set to 'migration_sandbox')
-    useKnex.schema.withSchema('servicecube_development').hasTable('customers').then(function(exists) {
-        res.send(exists)
-    })
+    res.send('hello world')
 })
 
 app.get('/secret', async function(req, res){
-    const value = await getMySQLSecrets()
-    console.log(value)
+    const value = await getSecret('MySQL-host')
     res.send(value)
 })
 
