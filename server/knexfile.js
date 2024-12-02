@@ -1,4 +1,4 @@
-import { getSecret } from "./AzureKeyVaultAuth.js";
+import { getSecret } from "../AzureKeyVaultAuth.js";
 
 const config = {
   client: 'mysql2',
@@ -10,7 +10,7 @@ const config = {
     database: 'migration_sandbox',
   },
   migrations: {
-    directory: './db/migrations',
+    directory: '../db/migrations',
   },
 }
 

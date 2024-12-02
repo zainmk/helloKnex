@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import knex from 'knex';
-import config from './knexfile.js';
+import config from './server/knexfile.js';
 
 import { getSecret } from './AzureKeyVaultAuth.js';
 
