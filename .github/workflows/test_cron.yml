@@ -1,0 +1,17 @@
+name: Test CRON
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - test-workflow
+  schedule:
+    - cron: '*/5 * * * *' # every 5 min
+  
+jobs:
+  test-output:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Echo Test"
+        run: echo "hello world"
