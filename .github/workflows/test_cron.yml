@@ -2,6 +2,9 @@ name: Test CRON
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - test-workflow
   schedule:
     - cron: '*/5 * * * *' # every 5 min
   
