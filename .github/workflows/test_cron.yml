@@ -12,8 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: everlytic/branch-merge@1.1.2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # github_token: ${{ secrets.PAT }} # needs a PAT
+          github_token: ${{ secrets.PAT }} # needs a PAT to trigger other workflows
           source_ref: 'main'
           target_branch: 'test-workflow'
           commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
