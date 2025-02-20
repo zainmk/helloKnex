@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: everlytic/branch-merge@1.1.2
         with:
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.PAT }}
           source_ref: 'main'
           target_branch: 'test-workflow'
           commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
