@@ -7,12 +7,18 @@ on:
 jobs:
   merge-branch:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: everlytic/branch-merge@1.1.2
-        with:
-          github_token: ${{ secrets.PAT }} # needs a PAT to trigger other workflows
-          source_ref: 'main'
-          target_branch: 'test-workflow'
-          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
 
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Merge Branches with Git
+        run: | 
+          git --version
+          git fetch origin
+          git checkout test-workflow
+          git merge origin/main
+          git push origin test-workflow
+          git commit -m "[Automated] Merged 'main' into 'test-workflow'"
+      
+# GH_TOKEN: ${{ secrets.PAT }}
