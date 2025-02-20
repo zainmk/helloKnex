@@ -16,9 +16,9 @@ jobs:
         run: | 
           git --version
           git fetch origin
-          git checkout prod
+          git checkout test-workflow
           git merge origin/main
-          git push origin prod
-          git commit -m "[Automated] Merged 'main' into 'prod'"
+          git push origin test-workflow
+          git commit -m "[Automated] Merged 'main' into 'test-workflow'"
       
 # GH_TOKEN: ${{ secrets.PAT }}
