@@ -37,5 +37,5 @@ jobs:
         run: |
           git push origin test-workflow
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This token allows push access # may need a PAT to trigger other workflows
+          GITHUB_TOKEN: ${{ secrets.PAT }}  # This token allows push access # may need a PAT to trigger other workflows
           
