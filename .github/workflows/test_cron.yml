@@ -11,11 +11,15 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: merge
-        uses: mtanzi/action-automerge@v1
-        id: merge
-        with:
-          github_token: ${{ github.token }}
-          source: 'main'
-          target: 'test-workflow'
-          webhook_url: ''
+      - name: Set Git config
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "Github Actions"
+      - name: Merge 'main' into 'test-workflow'
+        run: |
+          git fetch --unshallow
+          git checkout test-workflow
+          git pull
+          git merge --no-ff main -m "auto merge main to test-workflow"
+          git push
+
