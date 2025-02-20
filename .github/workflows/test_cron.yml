@@ -5,21 +5,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  merge:
-    name: Merge 'main' into 'test-workflow'
+  merge-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: Set Git config
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "Github Actions"
-      - name: Merge 'main' into 'test-workflow'
-        run: |
-          git fetch --unshallow
-          git checkout test-workflow
-          git pull
-          git merge --no-ff main -m "auto merge main to test-workflow"
-          git push
+      - uses: actions/checkout@v2
+      - uses: everlytic/branch-merge@1.1.2
+        with:
+          github_token: ${{ github.token }}
+          source_ref: 'main'
+          target_branch: 'test-workflow'
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
 
