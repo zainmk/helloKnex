@@ -7,7 +7,18 @@ on:
 jobs:
   merge-branch:
     runs-on: ubuntu-latest
-    steps:
-      - run: git --version
 
-    # GH_TOKEN: ${{ secrets.PAT }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Merge Branches with Git
+        run: | 
+          git --version
+          git fetch origin
+          git checkout prod
+          git merge origin/main
+          git push origin prod
+          git commit -m "[Automated] Merged 'main' into 'prod'"
+      
+# GH_TOKEN: ${{ secrets.PAT }}
