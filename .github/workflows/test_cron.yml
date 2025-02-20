@@ -1,15 +1,41 @@
-name: Test CRON
+name: Test CRON push to branch
 on: 
   schedule:
   - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 jobs:
-  job1:
-    name: Test
+  merge:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Git checkout
-      uses: actions/checkout@v2
-    - name: List files
-      run: ls
+      # Step 1: Check out the target branch (main)
+      - name: Checkout target branch (test-workflow)
+        uses: actions/checkout@v3
+        with:
+          ref: test-workflow  # Set the target branch to `main`
+
+      # Step 2: Set up Git user for commit
+      - name: Set up Git user
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # Step 3: Fetch the source branch (feature-branch)
+      - name: Fetch the source branch (main)
+        run: |
+          git fetch origin main
+
+      # Step 4: Merge feature-branch into main
+      - name: Merge feature-branch into main
+        run: |
+          git checkout test-workflow
+          git merge origin/main --no-ff --commit -m "Automatic merge of main into test-workflow"
+
+      # Step 5: Push the changes back to the repository
+      - name: Push changes to test-workflow
+        run: |
+          git push origin test-workflow
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This token allows push access # may need a PAT to trigger other workflows
+          
