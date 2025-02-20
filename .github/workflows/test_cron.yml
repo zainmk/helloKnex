@@ -15,6 +15,8 @@ jobs:
       - name: Merge Branches with Git
         run: | 
           git --version
+          git config --global user.email "<>"
+          git config --global user.name "Github Actions"
           git fetch origin
           git checkout test-workflow
           git merge origin/main --allow-unrelated-histories
