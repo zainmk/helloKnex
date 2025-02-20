@@ -1,0 +1,12 @@
+name: Test Echo
+on:
+  workflow_dispatch:
+  push: 
+    branches: test-workflow
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'hello world'
+
