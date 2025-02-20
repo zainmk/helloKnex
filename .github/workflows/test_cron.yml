@@ -17,7 +17,7 @@ jobs:
           git --version
           git fetch origin
           git checkout test-workflow
-          git merge origin/main
+          git merge origin/main --allow-unrelated-histories
           git push origin test-workflow
           git commit -m "[Automated] Merged 'main' into 'test-workflow'"
       
