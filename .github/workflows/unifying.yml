@@ -1,0 +1,19 @@
+name: Echo Test for Unifying
+on:
+  workflow_dispatch:
+  push: 
+    branches: 
+      - test-workflow
+      - main 
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: ['dev', 'staging', 'production'] # LIST OF ENVIRONMENTS
+      fail-fast: false
+    environment: ${{ matrix.environment }}
+    steps:
+      - run: echo ${{ vars.TEST_VARIABLE }}
+
