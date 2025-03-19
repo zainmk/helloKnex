@@ -17,3 +17,14 @@ jobs:
     steps:
       - run: echo ${{ vars.TEST_VARIABLE }}
 
+  echo-production:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: ['staging', 'production'] # LIST OF ENVIRONMENTS
+      fail-fast: false
+    environment: ${{ matrix.environment }}
+    steps:
+      - run: echo ${{ vars.TEST_VARIABLE }}
+
+
