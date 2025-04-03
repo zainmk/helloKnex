@@ -4,9 +4,14 @@ on:
   push: 
     branches: test-workflow
 
+env:
+  ENVIRONMENTS: 'dev,statging,prod' # list of environments defined once here
+
 jobs:
   echo:
     runs-on: ubuntu-latest
+    strategy:
+          matrix:
+            environment: ['dev', 'staging', 'prod'] # LIST OF ENVIRONMENTS
     steps:
-      - run: echo 'hello world'
-
+      - run: echo 'hello ${{ matrix.environment }}'
