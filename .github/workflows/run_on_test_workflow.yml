@@ -5,13 +5,15 @@ on:
     branches: test-workflow
 
 env:
-  ENVIRONMENTS: 'dev,statging,prod' # list of environments defined once here
+  ENVIRONMENTS: 'dev,staging,prod' # list of environments defined once here
 
 jobs:
   echo:
     runs-on: ubuntu-latest
     strategy:
           matrix:
-            environment: ['dev', 'staging', 'prod'] # LIST OF ENVIRONMENTS
+            # environment: ['dev', 'staging', 'prod'] # LIST OF ENVIRONMENTS
+            environment: ${{ fromJson('["' + env.ENVIRONMENTS + '"]') }} 
+
     steps:
       - run: echo 'hello ${{ matrix.environment }}'
