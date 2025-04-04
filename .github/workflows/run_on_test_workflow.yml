@@ -31,6 +31,7 @@ jobs:
         run: |
           ls
           envs=$(cat ./environments.json)
+          echo '$envs'
           echo 'environments=$envs' >> "$GITHUB_OUTPUT"
 
   echo:
