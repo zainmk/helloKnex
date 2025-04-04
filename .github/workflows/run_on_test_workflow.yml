@@ -41,6 +41,6 @@ jobs:
     strategy:
       matrix:
         # environment: ['dev', 'staging', 'prod'] # LIST OF ENVIRONMENTS
-        environment: ${{ fromJson(needs.define-matrix.outputs.environments.test) }}
+        environment: ${{ fromJson(needs.define-matrix.outputs.environments).test }}
     steps:
       - run: echo 'hello ${{ matrix.environment }}'
