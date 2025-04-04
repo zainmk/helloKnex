@@ -1,19 +1,20 @@
-name: Test Echo
+name: Test Echo - 
 on:
   workflow_dispatch:
   push: 
     branches: test-workflow
 
 env:
-  ENVIRONMENTS: 'dev,staging,prod' # list of environments defined once here
+  ENVIRONMENTS: '["dev", "staging", "prod"]'
 
 jobs:
   echo:
+    name: "Run Echo for ${{ matrix.environment }}"
     runs-on: ubuntu-latest
     strategy:
           matrix:
             # environment: ['dev', 'staging', 'prod'] # LIST OF ENVIRONMENTS
-            environment: ${{ fromJson('["' + env.ENVIRONMENTS + '"]') }} 
+            environment: ${{ fromJson(env.ENVIRONMENTS) }} 
 
     steps:
       - run: echo 'hello ${{ matrix.environment }}'
