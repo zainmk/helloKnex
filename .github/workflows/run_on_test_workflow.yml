@@ -30,7 +30,7 @@ jobs:
         id: environments
         run: |
           ls
-          envs=$(cat ./environments.json)
+          envs=$(cat ./environments.txt)
           echo $envs
           echo environments=$envs >> "$GITHUB_OUTPUT"
 
