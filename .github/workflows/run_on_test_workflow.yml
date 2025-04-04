@@ -8,15 +8,29 @@ env:
   ENVIRONMENTS: '["dev", "staging", "prod"]'
 
 jobs:
+  # define-matrix:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     environments: ${{ steps.environments.outputs.environments }}
+  #   steps:
+  #     - name: Define Environments
+  #       id: environments
+  #       run: |
+  #         echo 'environments=["dev", "staging", "prod"]' >> "$GITHUB_OUTPUT"
+
   define-matrix:
     runs-on: ubuntu-latest
     outputs:
       environments: ${{ steps.environments.outputs.environments }}
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
       - name: Define Environments
         id: environments
         run: |
-          echo 'environments=["dev", "staging", "prod"]' >> "$GITHUB_OUTPUT"
+          envs=$(cat environments.json)
+          echo 'environments=$envs' >> "$GITHUB_OUTPUT"
 
   echo:
     name: "Run Echo for ${{ matrix.environment }}"
