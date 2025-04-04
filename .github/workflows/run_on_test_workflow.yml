@@ -29,7 +29,8 @@ jobs:
       - name: Define Environments
         id: environments
         run: |
-          envs=$(cat environments.json)
+          ls
+          envs=$(cat ./environments.json)
           echo 'environments=$envs' >> "$GITHUB_OUTPUT"
 
   echo:
