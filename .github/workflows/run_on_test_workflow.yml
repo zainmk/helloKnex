@@ -8,13 +8,27 @@ env:
   ENVIRONMENTS: '["dev", "staging", "prod"]'
 
 jobs:
+  load-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set-matrix.outputs.environments }}
+    steps:
+      - name: Check out Repo
+        uses: actions/checkout@v2
+
+      - name: Read Matrix
+        id: set-matrix
+        run: |
+          ENVIRONMENTS=$(cat matrix.json | jq -r '.environments | join(",")')
+
   echo:
     name: "Run Echo for ${{ matrix.environment }}"
+    needs: load-matrix
     runs-on: ubuntu-latest
     strategy:
           matrix:
             # environment: ['dev', 'staging', 'prod'] # LIST OF ENVIRONMENTS
-            environment: ${{ fromJson(env.ENVIRONMENTS) }} 
+            environment: ${{ fromJson(needs.load-matrix.outputs.environments) }}
 
     steps:
       - run: echo 'hello ${{ matrix.environment }}'
