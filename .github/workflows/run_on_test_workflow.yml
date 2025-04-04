@@ -1,4 +1,4 @@
-name: Test Echo - 
+name: Test Echo
 on:
   workflow_dispatch:
   push: 
@@ -8,29 +8,23 @@ env:
   ENVIRONMENTS: '["dev", "staging", "prod"]'
 
 jobs:
-  load-matrix:
+  define-matrix:
     runs-on: ubuntu-latest
     outputs:
-      environment: ${{ steps.set-matrix.outputs.environments }}
+      environments: ${{ steps.environments.outputs.environments }}
     steps:
-      - name: Check out Repo
-        uses: actions/checkout@v2
-
-      - name: Read Matrix
-        id: set-matrix
+      - name: Define Environments
+        id: environments
         run: |
-          ENVIRONMENTS=$(cat matrix.json | jq -r '.environments | join(",")')
-          echo "Environments are: $ENVIRONMENTS"
-          echo "environments=$ENVIRONMENTS" >> $GITHUB_ENV
-      
+          echo 'environments=["dev", "staging", "prod"]' >> "$GITHUB_OUTPUT"
+
   echo:
     name: "Run Echo for ${{ matrix.environment }}"
-    needs: load-matrix
+    needs: define-matrix
     runs-on: ubuntu-latest
     strategy:
-          matrix:
-            # environment: ['dev', 'staging', 'prod'] # LIST OF ENVIRONMENTS
-            environment: ${{ fromJson(needs.load-matrix.outputs.environments) }}
-
+      matrix:
+        # environment: ['dev', 'staging', 'prod'] # LIST OF ENVIRONMENTS
+        environment: ${{ fromJson(needs.define-matrix.outputs.environments) }}
     steps:
       - run: echo 'hello ${{ matrix.environment }}'
