@@ -4,20 +4,7 @@ on:
   push: 
     branches: test-workflow
 
-env:
-  ENVIRONMENTS: '["dev", "staging", "prod"]'
-
 jobs:
-  # define-matrix:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     environments: ${{ steps.environments.outputs.environments }}
-  #   steps:
-  #     - name: Define Environments
-  #       id: environments
-  #       run: |
-  #         echo 'environments=["dev", "staging", "prod"]' >> "$GITHUB_OUTPUT"
-
   define-matrix:
     runs-on: ubuntu-latest
     outputs:
@@ -30,7 +17,7 @@ jobs:
         id: environments
         run: |
           ls
-          envs=$(cat ./environments.json)
+          envs=$(cat .github/workflows/environments.json)
           echo $envs
           echo environments=$envs >> "$GITHUB_OUTPUT"
 
