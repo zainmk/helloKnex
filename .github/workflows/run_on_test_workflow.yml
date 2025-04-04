@@ -20,7 +20,9 @@ jobs:
         id: set-matrix
         run: |
           ENVIRONMENTS=$(cat matrix.json | jq -r '.environments | join(",")')
-
+          echo "Environments are: $ENVIRONMENTS"
+          echo "environments=$ENVIRONMENTS" >> $GITHUB_ENV
+      
   echo:
     name: "Run Echo for ${{ matrix.environment }}"
     needs: load-matrix
